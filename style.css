@@ -1,0 +1,196 @@
+/* Tom's Towpath Walks - shared styles for every page */
+
+:root {
+  --cream: #faf8f4;
+  --ink: #211c18;
+  --muted: #5e564e;        /* darker than before so small text is easier to read */
+  --line: #ddd6cb;
+  --accent: #b5694c;       /* decorative: underlines, borders */
+  --accent-text: #8f4a30;  /* accent colour dark enough to read as text */
+  --card: #ffffff;
+  --serif: Georgia, "Times New Roman", Times, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+a { color: inherit; text-decoration-color: var(--accent); text-underline-offset: 3px; }
+a:hover { color: var(--accent-text); }
+
+/* Clear outline so keyboard users can always see where they are */
+a:focus-visible {
+  outline: 3px solid var(--accent-text);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.wrap { max-width: 68rem; margin: 0 auto; padding: 0 1.25rem; }
+
+/* "Skip to content" link: hidden until a keyboard user tabs to it */
+.skip {
+  position: absolute; left: 0.75rem; top: -4rem;
+  background: var(--ink); color: var(--cream);
+  padding: 0.6rem 1rem; border-radius: 8px; z-index: 10;
+}
+.skip:focus { top: 0.75rem; color: var(--cream); }
+
+/* ---------- top bar ---------- */
+.topbar { border-bottom: 1px solid var(--line); }
+.topbar .wrap {
+  display: flex; flex-wrap: wrap; align-items: center;
+  justify-content: space-between; gap: 0 1.5rem;
+  padding-top: 0.25rem; padding-bottom: 0.25rem;
+}
+.brand, nav a {
+  display: inline-flex; align-items: center;
+  min-height: 2.75rem;            /* comfortable thumb-sized tap target */
+}
+.brand { font-weight: 600; text-decoration: none; }
+nav { display: flex; flex-wrap: wrap; gap: 0 1.5rem; }
+nav a { text-decoration: none; color: var(--muted); border-bottom: 2px solid transparent; }
+nav a:hover { color: var(--ink); }
+nav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); }
+
+/* ---------- masthead ---------- */
+.masthead {
+  margin-top: 2rem;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 1.5rem 0;
+  text-align: center;
+}
+.masthead h1 {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 8vw, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  overflow-wrap: break-word;
+}
+.label {
+  font-family: var(--mono);
+  font-size: 0.875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.masthead .label { margin: 0.8rem 0 0; }
+
+/* ---------- page content ---------- */
+main { padding: 2.5rem 0 3rem; }
+
+h2, h1.page-title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  line-height: 1.15;
+  margin: 0 0 1rem;
+}
+.lead { font-size: 1.2rem; max-width: 38rem; }
+
+.section-head {
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline;
+  gap: 0.25rem 1rem; margin: 3rem 0 1.25rem;
+  border-bottom: 1px solid var(--line); padding-bottom: 0.5rem;
+}
+.section-head h2 { margin: 0; font-size: 1.6rem; }
+.section-head .label { margin: 0; }
+
+/* ---------- tags ---------- */
+.tags { display: flex; flex-wrap: wrap; gap: 0.4rem; list-style: none; padding: 0; margin: 0; }
+.tags li {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.65rem;
+  border: 1px solid #cfc7ba;
+  border-radius: 999px;
+  background: #f3eee5;
+  color: var(--ink);
+}
+
+/* ---------- cards on home page ---------- */
+.cards {
+  display: grid; gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+}
+.card {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1.25rem;
+  display: flex; flex-direction: column; gap: 0.6rem;
+}
+.card:hover { border-color: var(--accent); }
+.card:focus-within { outline: 3px solid var(--accent-text); outline-offset: 3px; }
+.card h3 { font-family: var(--serif); font-weight: 400; font-size: 1.45rem; line-height: 1.2; margin: 0; overflow-wrap: break-word; }
+.card h3 a { text-decoration: none; }
+.card h3 a:focus-visible { outline: none; }
+/* makes the whole card clickable, which is easier with a thumb */
+.card h3 a::after { content: ""; position: absolute; inset: 0; border-radius: 14px; }
+.card h3 a:hover { text-decoration: underline; text-decoration-color: var(--accent); }
+.card p { margin: 0; color: var(--muted); font-size: 1rem; }
+.card .stats { font-family: var(--mono); font-size: 0.875rem; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; }
+.card .tags { margin-top: auto; padding-top: 0.5rem; }
+
+.more { display: inline-block; margin-top: 1.5rem; padding: 0.5rem 0; }
+
+/* ---------- full walks list ---------- */
+.walk {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  scroll-margin-top: 1rem;
+}
+/* the walk you jumped to from the home page gets a highlighted edge */
+.walk:target { border-color: var(--accent); box-shadow: 0 0 0 3px #ecd5c9; }
+.walk h2 { font-size: 1.8rem; margin: 0 0 0.25rem; overflow-wrap: break-word; }
+.walk .when { margin: 0 0 1rem; }
+.facts {
+  display: grid; gap: 0.9rem 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+  margin: 0 0 1.25rem; padding: 1rem 0;
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+}
+.facts div { margin: 0; }
+.facts dt { font-family: var(--mono); font-size: 0.8125rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.facts dd { margin: 0.1rem 0 0; }
+.walk .note { margin: 0 0 1rem; max-width: 40rem; }
+
+/* ---------- about / contact ---------- */
+.prose { max-width: 38rem; }
+.contact-box {
+  margin-top: 2rem; padding: 1.25rem 1.5rem;
+  background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+  max-width: 38rem;
+}
+.contact-box p { margin: 0.3rem 0 0; }
+.contact-box .label { margin: 0; }
+.contact-box a { font-size: 1.2rem; overflow-wrap: anywhere; }
+
+/* ---------- footer ---------- */
+footer { border-top: 1px solid var(--line); padding: 1.5rem 0 2.5rem; color: var(--muted); font-size: 0.9375rem; }
+
+@media (max-width: 34rem) {
+  body { font-size: 1rem; }
+  .wrap { padding: 0 1rem; }
+  nav { gap: 0 1.1rem; }
+  .walk { padding: 1.1rem; }
+  .walk h2 { font-size: 1.6rem; }
+  .contact-box { padding: 1rem; }
+}
